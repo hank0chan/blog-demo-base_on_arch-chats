@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hankchan.data.root.entity.RootMapper">
+	<resultMap type="cn.hankchan.data.root.entity.Root" id="Root" autoMapping="true"></resultMap>
+	
+	<select id="get" parameterType="java.lang.String" resultMap="Root">
+		select * from t_root where root=#{root}
+	</select>
+	
+	<!-- 判断是否存在该用户 -->
+	<select id="count" parameterType="java.lang.String" resultMap="Root">
+		select * from t_root where root=#{root} and password=#{password} and phone=#{phone}
+	</select>
+	
+	<update id="update">
+		update t_root
+		<set>
+			<if test="password != null">password=#{password},</if>
+			<if test="phone != null">phone=#{phone},</if>
+			<if test="tips != null">tips=#{tips}</if>
+		</set>
+		<where>
+			<if test="root != null">root=#{root}</if>
+		</where>
+	</update>
+	
+	<delete id="delete">
+		delete from t_root where root=#{root} and password=#{password}
+	</delete>
+</mapper>
