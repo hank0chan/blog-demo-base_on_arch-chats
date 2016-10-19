@@ -11,15 +11,15 @@ import cn.hankchan.root.service.RootDataServiceImpl;
 
 public class TestRootService {
 
-	static ApplicationContext xml;
+/*	static ApplicationContext xml;
 	static RootDataServiceImpl dataServiceImpl;
 	@BeforeClass
-	public void init() {
+	public static void init() {
 		xml = new ClassPathXmlApplicationContext("classpath:config/spring/applicationContext.xml");
 		dataServiceImpl = (RootDataServiceImpl) xml.getBean("rootDataService");
 	}
 	@AfterClass
-	public void destory() { }
+	public static void destory() { }
 	
 	@Test
 	public void testDelete() {
@@ -47,5 +47,5 @@ public class TestRootService {
 	public void testGet() {
 		Root root = dataServiceImpl.get("root");
 		System.out.println(root);
-	}
+	}*/
 }

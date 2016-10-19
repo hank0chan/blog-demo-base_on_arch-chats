@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,8 +30,15 @@ public class ArticleAPIs {
 	public @ResponseBody APIResult deleteById(HttpServletRequest req, HttpServletResponse rsp, 
 			@PathVariable("articleId") String articleId) {
 		APIResult result = APIResult.prepare();
-		int isSuccess = articleDataService.delete(articleId);
-		return isSuccess > 0 ? result.ok("delete Success") : result.error("failure..");
+		HttpSession session = req.getSession();
+		if(session.getAttribute("root") != null) {
+			// TODO 校验通过
+			int isSuccess = articleDataService.delete(articleId);
+			return isSuccess > 0 ? result.ok("delete Success") : result.error("failure..");
+		} else {
+			// 校验失败
+			return result.error("error..refused to aceess!");
+		}
 	}
 	
 	/**
@@ -55,14 +63,21 @@ public class ArticleAPIs {
 			@RequestParam("content") String articleContent, 
 			@RequestParam(value="tips",required=false) String tips) {
 		APIResult result = APIResult.prepare();
-		Article article = new Article();
-		article.setArticleId(TimeUtils.YYYYMMDDHHMMSSFFF.format(new Date()));
-		article.setName(articleName);
-		article.setContent(articleContent);
-		article.setUpdateTime(TimeUtils.YYYYMMDDHHMM.format(new Date()));
-		article.setTips((tips == null ? "null" : tips));
-		Article isSuccess = articleDataService.insert(article);
-		return isSuccess != null ? result.ok(isSuccess.articleId) : result.error("failure..");
+		HttpSession session = req.getSession();
+		if(session.getAttribute("root") != null) {
+			// TODO 校验通过
+			Article article = new Article();
+			article.setArticleId(TimeUtils.YYYYMMDDHHMMSSFFF.format(new Date()));
+			article.setName(articleName);
+			article.setContent(articleContent);
+			article.setUpdateTime(TimeUtils.YYYYMMDDHHMM.format(new Date()));
+			article.setTips((tips == null ? "null" : tips));
+			Article isSuccess = articleDataService.insert(article);
+			return isSuccess != null ? result.ok(isSuccess.articleId) : result.error("failure..");	
+		} else {
+			return result.error("error..refused to access!");
+		}
+		
 	}
 	
 	@RequestMapping("/article/get-id={articleId}.json")

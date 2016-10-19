@@ -5,24 +5,37 @@
 <title>Hello World</title>
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript">
-function ajaxReq() {
+/* function ajaxReq() {
     var url="/chats-web/article.json"; 
     var oData = document.getElementById('data');
     $.getJSON(url, function (json) {
         oData.innerHTML = json.result.content;
     });
 }
+function ajaxArticle() {
+	var url="/chats-web/article/get-time=201610162300.json";
+	var oRes = document.getElementById('resroot');
+	$.getJSON(url, function(datas){
+		oRes.innerHTML = datas.result.content;
+	});
+}
 window.onload = function () {
     var oAjax = document.getElementById('req');
     oAjax.onclick = function () {
         ajaxReq();
     }
-}
+    var oReqRoot = document.getElementById('reqroot');
+    oReqRoot.onclick = function() {
+    	ajaxArticle();
+    }
+} */
 </script>
 </head>
 <body>
-    <h4 id="req">ReqAjax</h4>
-    
+	<h2>Hello .. </h2>
+<!--     <h4 id="req">ReqAjax</h4>
     <pre id="data">hello</pre>
+    <h4 id="reqroot">ReqRoot</h4>
+    <pre id="resroot">resRoot</pre> -->
 </body>
 </html>

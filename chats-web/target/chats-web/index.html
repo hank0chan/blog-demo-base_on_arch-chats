@@ -12,17 +12,29 @@ function ajaxReq() {
         oData.innerHTML = json.result.content;
     });
 }
+function ajaxArticle() {
+	var url="/chats-web/article/get-time=201610162300.json";
+	var oRes = document.getElementById('resroot');
+	$.getJSON(url, function(datas){
+		oRes.innerHTML = datas.result.content;
+	});
+}
 window.onload = function () {
     var oAjax = document.getElementById('req');
     oAjax.onclick = function () {
         ajaxReq();
+    }
+    var oReqRoot = document.getElementById('reqroot');
+    oReqRoot.onclick = function() {
+    	ajaxArticle();
     }
 }
 </script>
 </head>
 <body>
     <h4 id="req">ReqAjax</h4>
-    </div>
     <pre id="data">hello</pre>
+    <h4 id="reqroot">ReqRoot</h4>
+    <pre id="resroot">resRoot</pre>
 </body>
 </html>

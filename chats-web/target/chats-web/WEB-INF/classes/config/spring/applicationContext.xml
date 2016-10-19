@@ -10,4 +10,6 @@
 	<import resource="classpath:config/spring/application-user.xml"/>
 	<import resource="classpath:config/spring/application-data.xml"/>
 	<import resource="classpath:config/spring/application-article.xml"/>
+	<import resource="classpath:config/spring/application-root.xml"/>
+	
 </beans>

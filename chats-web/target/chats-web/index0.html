@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello World</title>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+function login() {
+	var oUsername = document.getElementById('username');
+	var oPassword = document.getElementById('password');
+	var oPhone = document.getElementById('phone');
+	var username = oUsername.value;
+	var password = oPassword.value;
+	var phone = oPhone.value;
+	var url = "/chats-web/root/login.json";
+	var param = {'username':username, 'password':password, 'phone':phone};
+	$.ajax(url, param, function(json){
+		alert(json.result);
+	});
+}
+function ajaxReq() {
+    var url="/chats-web/article.json"; 
+    var oData = document.getElementById('data');
+    $.getJSON(url, function (json) {
+        oData.innerHTML = json.result.content;
+    });
+}
+window.onload = function () {
+    var oAjax = document.getElementById('req');
+    oAjax.onclick = function () {
+        ajaxReq();
+    }
+}
+</script>
+</head>
+<body>
+	<form onsubmit="return login()" method="post">
+		<input id="username" type="text" name="username" value=""/>
+		<input id="password" type="text" name="password" value=""/>
+		<input id="phone" type="text" name="phone" value=""/>
+		<input type="submit" name="submit" value="Submit"/>
+	</form>
+    <pre id="data">hello</pre>
+</body>
+</html>
+

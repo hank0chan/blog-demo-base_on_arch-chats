@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello World</title>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+function login() {
+	var oUsername = document.getElementById('username');
+	var oPassword = document.getElementById('password');
+	var oPhone = document.getElementById('phone');
+	var username0 = oUsername.value;
+	var password0 = oPassword.value;
+	var phone0 = oPhone.value;
+	//var url = "/chats-web/root/login.json";
+	var param = {'username':username, 'password':password, 'phone':phone};
+	$.post("/chats-web/root/login.json", {username:username0, 'password':password0, 'phone':phone0}, function(json){
+		alert("result:" + json.result);
+	});
+	/* $.ajax({
+            url: "/chats-web/root/login.json",
+            type: "POST",
+			data: {'username':username, 'password':password, 'phone':phone},
+            dataType: "json",  // dataType值改为JSONP可以解决跨域问题 						
+            success: function (datas) {								
+                alert(datas.result);                
+            }
+    }); */	
+}
+function ajaxReq() {
+    var url="/chats-web/article.json"; 
+    var oData = document.getElementById('data');
+    $.getJSON(url, function (json) {
+        oData.innerHTML = json.result.content;
+    });
+}
+window.onload = function () {
+    //var oAjax = document.getElementById('req');
+    //oAjax.onclick = function () {
+    //   ajaxReq();
+    //}
+}
+</script>
+</head>
+<body>
+	<form onsubmit="return login()" method="post">
+		<input id="username" type="text" name="username" value=""/>
+		<input id="password" type="text" name="password" value=""/>
+		<input id="phone" type="text" name="phone" value=""/>
+		<input type="submit" name="submit" value="Submit"/>
+	</form>
+    <pre id="data">hello</pre>
+</body>
+</html>
+
